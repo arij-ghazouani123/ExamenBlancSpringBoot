@@ -8,6 +8,7 @@ import com.example.examenpratiquespringboot.Repository.SprintRepository;
 import com.example.examenpratiquespringboot.Repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,33 +25,34 @@ public class IProjectServiceIMP implements IProjectService {
 
     @Override
     public Project addProject(Project project) {
-      //  return projectRepository.save(project);
-        Project p = projectRepository.save(project);
-        List<Sprint> list = new ArrayList<>();
-        for (String sprint : project.getSprints()) {
-            sprint.setProject(projectRepository.findById(p.getId()).orElse(null));
-            list.add(sprint);
-        }
-        sprintRepository.saveAll(list);
+        return projectRepository.save(project);
+
     }
 
     @Override
     public void assignProjectToUser(int projectId, int userId) {
-        User user = userRepository.retrieveById(userId);
-        Project project = this.retrieveById(projectId);
+        User user =userRepository.findById(userId).orElse(null);
+        Project project =projectRepository.findById(projectId).orElse(null);
 
-        project.setUser(user);
-
-
-
-    @Override
-    public void assignProjectToClient(int projectId, String firstName, String lastName) {
-
-    }
+        user.setProjects((List<Project>) project);
+        userRepository.save(user);
 
     @Override
-    public List<Project> getAllCurrentProject() {
-        return null;
-    }
-}
+        public void assignProjectToClient( Integer projectId, String firstName, String lastName)
+        {
+            Project project = projectRepository.findById(projectId).orElse(null);
+            List<User> users = userRepository.findAll();
 
+            for (User user : users) {
+                if (user.getFName().equals(firstName) && user.getFName().equals(lastName)) {
+
+                }
+            }
+
+            @Override
+            public List<Project> getAllCurrentProject() {
+            List<Project> currentProjects = projectRepository.findAll();
+
+            }
+        }
+        }
