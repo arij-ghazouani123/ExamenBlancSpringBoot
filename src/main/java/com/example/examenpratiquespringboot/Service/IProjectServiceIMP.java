@@ -43,10 +43,7 @@ public class IProjectServiceIMP implements IProjectService {
             Project project = projectRepository.findById(projectId).orElse(null);
             List<User> user = userRepository.findAll();
 
-            for (User user : user) {
-                if (user.getFName().equals(firstName) && user.getFName().equals(lastName)) {
 
-                }
             }
 
             @Override
