@@ -41,9 +41,9 @@ public class IProjectServiceIMP implements IProjectService {
         public void assignProjectToClient( Integer projectId, String firstName, String lastName)
         {
             Project project = projectRepository.findById(projectId).orElse(null);
-            List<User> users = userRepository.findAll();
+            List<User> user = userRepository.findAll();
 
-            for (User user : users) {
+            for (User user : user) {
                 if (user.getFName().equals(firstName) && user.getFName().equals(lastName)) {
 
                 }
@@ -54,5 +54,8 @@ public class IProjectServiceIMP implements IProjectService {
             List<Project> currentProjects = projectRepository.findAll();
 
             }
+
+
+
         }
         }
